@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Control de asistencia · Pueblos Unidos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--g:#30821e;--gd:#1f5c12;--gs:#eef6ec;--gl:#cfe3c9;--ink:#1d2b1a;--mu:#5b6b57;--bg:#f6f8f5;--err:#b3261e;--r:16px}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Open Sans',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;min-height:100vh;display:flex;flex-direction:column}
+.top{background:#fff;border-bottom:4px solid var(--g);padding:14px 16px;display:flex;justify-content:center}
+.top{flex-wrap:wrap;align-items:center;gap:12px 28px}.logo{height:52px;max-width:100%;width:auto}.fl{height:42px;width:auto;max-width:100%}.fm{height:32px;width:auto;max-width:100%}.sep{width:2px;height:40px;background:var(--gl)}@media(max-width:640px){.sep{display:none}.top{gap:10px 20px}.logo{height:46px}.fl{height:36px}.fm{height:28px}}
+main{width:100%;max-width:600px;margin:0 auto;padding:24px 16px 32px;flex:1}
+main.wide{max-width:1100px}
+h1{font-size:1.75rem;line-height:1.2;margin:0 0 8px;color:var(--gd);font-weight:800}
+h2{font-size:1.15rem;margin:0 0 12px;color:var(--gd)}
+.lead{color:var(--mu);margin:0 0 22px}
+.steps{display:flex;gap:8px;margin-bottom:24px}
+.steps div{flex:1;font-size:.8rem;font-weight:600;color:var(--mu)}
+.steps div::before{content:"";display:block;height:6px;border-radius:3px;background:var(--gl);margin-bottom:6px;transition:background .3s}
+.steps .on{color:var(--gd)}.steps .on::before{background:var(--g)}
+.card{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:#fff;border:2px solid var(--gl);border-radius:var(--r);padding:18px;margin-bottom:12px;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s}
+.card:hover{border-color:var(--g)}
+.card[aria-pressed=true]{border-color:var(--g);background:var(--gs);box-shadow:0 0 0 3px rgba(48,130,30,.18)}
+.card b{display:block;font-size:1.1rem}.card span{color:var(--mu);font-size:.92rem}
+.days{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:-2px 0 14px}
+.day{font:inherit;font-weight:600;border:2px solid var(--gl);background:#fff;border-radius:12px;padding:14px 8px;cursor:pointer;min-height:56px}
+.day[aria-pressed=true]{background:var(--g);border-color:var(--g);color:#fff}
+.btn{font:inherit;font-weight:700;font-size:1.05rem;min-height:52px;width:100%;border:0;border-radius:14px;background:var(--g);color:#fff;cursor:pointer;padding:0 20px;transition:background .15s}
+.btn:hover{background:var(--gd)}.btn:disabled{background:#b9c9b5;cursor:not-allowed}
+.btn.ghost{background:#fff;color:var(--gd);border:2px solid var(--gl)}.btn.ghost:hover{background:var(--gs)}
+.btn.sm{min-height:40px;font-size:.9rem;width:auto;padding:0 14px;border-radius:10px}
+.btn.red{background:#fff;color:var(--err);border:2px solid #efc4c1}
+.row{display:flex;gap:10px;margin-top:14px}
+.field{margin-bottom:16px}
+label{display:block;font-weight:600;margin-bottom:6px}label small{font-weight:400;color:var(--mu)}
+input[type=text],input[type=tel],input[type=email],input[type=password],input[type=search],select{font:inherit;width:100%;min-height:52px;padding:0 14px;border:2px solid var(--gl);border-radius:12px;background:#fff;color:var(--ink)}
+input:focus,select:focus,button:focus-visible{outline:3px solid rgba(48,130,30,.4);outline-offset:2px;border-color:var(--g)}
+.bad input{border-color:var(--err)}.msg{display:none;color:var(--err);font-size:.85rem;margin-top:4px}.bad .msg{display:block}
+.consent{display:flex;gap:12px;align-items:flex-start;background:var(--gs);padding:14px;border-radius:12px;font-size:.9rem}
+.consent input{width:22px;height:22px;margin-top:2px;accent-color:var(--g);flex:none}
+.consent.bad{outline:2px solid var(--err)}
+.ok{text-align:center;padding:12px 0}
+.ok svg{width:110px;height:110px}.ok circle{stroke:var(--g);stroke-width:5;fill:var(--gs);stroke-dasharray:290;stroke-dashoffset:290;animation:d .6s ease forwards}
+.ok path{stroke:var(--g);stroke-width:7;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:60;stroke-dashoffset:60;animation:d .4s .5s ease forwards}
+@keyframes d{to{stroke-dashoffset:0}}
+.pill{display:inline-block;background:var(--gs);color:var(--gd);font-weight:600;border-radius:99px;padding:6px 14px;margin:6px 0 22px}
+footer{text-align:center;padding:16px;color:var(--mu);font-size:.82rem}
+.link{background:none;border:0;font:inherit;color:var(--mu);text-decoration:underline;cursor:pointer}
+.sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+.sum div{background:#fff;border:2px solid var(--gl);border-radius:var(--r);padding:14px}
+.sum strong{display:block;font-size:1.9rem;color:var(--g);line-height:1.1}.sum span{font-size:.85rem;color:var(--mu)}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}.bar>*{flex:1 1 160px}.bar .btn{flex:0 0 auto}
+.tw{overflow-x:auto;background:#fff;border:2px solid var(--gl);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--gl);white-space:nowrap}
+th{background:var(--gs);color:var(--gd)}.empty{padding:28px;text-align:center;color:var(--mu)}
+.qr{display:flex;gap:18px;align-items:center;background:#fff;border:2px solid var(--gl);border-radius:var(--r);padding:16px;margin-top:16px;flex-wrap:wrap}
+.note{font-size:.85rem;color:var(--mu);background:#fff8e6;border:1px solid #f0dca0;border-radius:12px;padding:10px 14px;margin-top:14px}
+.pinbox{max-width:360px;margin:30px auto}
+[hidden]{display:none!important}
+.printhead{display:none}
+.sigbox{background:#fff;border:2px dashed var(--g);border-radius:12px;overflow:hidden}
+.sigbox canvas{display:block;width:100%;height:auto;aspect-ratio:3/1;touch-action:none;cursor:crosshair}
+.bad .sigbox{border-color:var(--err)}
+.sigtools{text-align:right;margin-top:4px}
+.sigimg{height:42px;width:auto;display:block;background:#fff}
+.funders{display:flex;gap:22px;justify-content:center;align-items:center;flex-wrap:wrap;padding:6px 16px 14px}
+.funders img{height:48px;width:auto;max-width:42%;object-fit:contain}
+.funders:empty{display:none}
+@page{size:landscape;margin:12mm}
+@media print{.top,footer,.noprint,.sum,.qr,.note{display:none!important}.printhead{display:block;text-align:center}.printhead img{height:38px;margin:0 12px;vertical-align:middle}body{background:#fff}.tw{border:0}th{background:#eee!important}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div style="text-align:center"><h1 style="margin:0;color:#1f5c12">Pueblos Unidos</h1><p style="margin:4px 0 0">Fundación San Juan del Castillo</p></div>
+</header>
+<main id="pub"><div id="stage"></div></main>
+<main id="adm" class="wide" hidden>
+  <div id="pinView" class="pinbox">
+    <h1>Acceso organizadores</h1>
+    <p class="lead">Entra con tu cuenta autorizada para consultar las asistencias y exportarlas a Excel.</p>
+    <div class="field"><label for="aem">Correo electrónico</label><input id="aem" type="email" autocomplete="username"></div>
+    <div class="field" id="pinF"><label for="pin">Contraseña</label><input id="pin" type="password" autocomplete="current-password"><div class="msg">Correo o contraseña incorrectos. Inténtalo de nuevo.</div></div>
+    <div class="row"><button class="btn ghost" id="pinBack">Volver</button><button class="btn" id="pinGo">Entrar</button></div>
+  </div>
+  <div id="admView" hidden>
+    <div class="noprint" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h1 style="margin:0">Asistentes</h1><button class="btn ghost sm" id="admBack">Salir</button></div>
+    <div class="sum" id="sum"></div>
+    <div class="bar noprint">
+      <input type="search" id="q" placeholder="Buscar por nombre o documento" aria-label="Buscar">
+      <select id="fT" aria-label="Filtrar por taller"></select>
+      <select id="fD" aria-label="Filtrar por día"></select>
+      <button class="btn sm" id="csv">Exportar a Excel</button>
+      <button class="btn ghost sm" id="prn">Imprimir lista</button>
+    </div>
+    <div class="tw"><table><thead><tr><th>Nombre</th><th>Documento</th><th>Teléfono</th><th>Correo</th><th>Taller</th><th>Día</th><th>Fecha y hora</th><th>Firma</th><th class="noprint"></th></tr></thead><tbody id="tb"></tbody></table><div class="empty" id="emp" hidden>Todavía no hay registros con estos filtros.</div></div>
+    <div class="note" id="note"></div>
+  </div>
+</main>
+<footer><button class="link" id="goAdmin">Acceso organizadores</button></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const CONFIG={organizacion:"Pueblos Unidos – Fundación San Juan del Castillo",adminHash:"8e28204a8ec9bbbb39805369c6af4803f6b4f81742c32dbabcdb507f2e16477f",SHEETS_URL:"",talleres:[{id:"cv",nombre:"Taller de CV",desc:"Prepara tu currículum",dias:[]},{id:"orientacion",nombre:"Taller de Orientación Laboral",desc:"2 días · 23 y 24 de noviembre",dias:[{id:"d1",etiqueta:"Día 1 · 23 nov",fecha:"2026-11-23"},{id:"d2",etiqueta:"Día 2 · 24 nov",fecha:"2026-11-24"}]}]};
+const KEY="pu_asistencias_v1";const $=s=>document.querySelector(s);const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));const load=()=>{try{return JSON.parse(localStorage.getItem(KEY))||[]}catch{return[]}};const save=a=>{try{localStorage.setItem(KEY,JSON.stringify(a))}catch{}};const pad=n=>String(n).padStart(2,"0");const hoyISO=()=>{const d=new Date();return`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`};const getT=id=>CONFIG.talleres.find(t=>t.id===id);
+let S={step:1,t:null,d:null,last:null,dup:false};
+function stepsBar(n){return`<div class="steps" aria-label="Progreso">${["Taller","Tus datos","Listo"].map((x,i)=>`<div class="${i<n?"on":""}">${x}</div>`).join("")}</div>`}
+function view1(){const hoy=hoyISO();const cards=CONFIG.talleres.map(t=>{const sel=S.t===t.id;let h=`<button class="card" data-t="${t.id}" aria-pressed="${sel}"><b>${esc(t.nombre)}</b><span>${esc(t.desc)}</span></button>`;if(sel&&t.dias.length)h+=`<div class="days" role="group" aria-label="Día">${t.dias.map(d=>`<button class="day" data-d="${d.id}" aria-pressed="${S.d===d.id}">${esc(d.etiqueta)}</button>`).join("")}</div>`;return h}).join("");const t=S.t&&getT(S.t),ready=t&&(!t.dias.length||S.d);$("#stage").innerHTML=`${stepsBar(1)}<h1>Bienvenido/a</h1><p class="lead">Registra tu asistencia en 3 pasos. ¿A qué taller vienes hoy?</p>${cards}<button class="btn" id="next" ${ready?"":"disabled"}>Continuar</button>`;document.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{S.t=b.dataset.t;S.d=null;const tt=getT(S.t);const hd=tt.dias.find(d=>d.fecha===hoy);if(hd)S.d=hd.id;view1()});document.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{S.d=b.dataset.d;view1()});$("#next").onclick=()=>{S.step=2;view2()}}
+function view2(){const t=getT(S.t),d=t.dias.find(x=>x.id===S.d);$("#stage").innerHTML=`${stepsBar(2)}<h1>Tus datos</h1><span class="pill">${esc(t.nombre)}${d?" · "+esc(d.etiqueta):""}</span><form id="f" novalidate><div class="field" data-f="nombre"><label for="nombre">Nombre completo</label><input id="nombre" type="text" autocomplete="name"><div class="msg">Escribe tu nombre y apellidos.</div></div><div class="field" data-f="doc"><label for="doc">DNI / NIE / Documento</label><input id="doc" type="text" autocapitalize="characters" autocomplete="off"><div class="msg">Revisa tu documento (entre 5 y 15 letras o números).</div></div><div class="field" data-f="tel"><label for="tel">Teléfono <small>(opcional)</small></label><input id="tel" type="tel" autocomplete="tel"><div class="msg">Revisa el teléfono: solo números, entre 7 y 15 dígitos.</div></div><div class="field" data-f="email"><label for="email">Correo electrónico <small>(opcional)</small></label><input id="email" type="email" autocomplete="email"><div class="msg">Revisa el correo, parece incompleto.</div></div><div class="field" data-f="firma"><label>Firma <small>(dibújala con el dedo o el ratón)</small></label><div class="sigbox"><canvas id="pad" width="480" height="160" aria-label="Recuadro para firmar"></canvas></div><div class="sigtools"><button type="button" class="link" id="clr">Borrar y volver a firmar</button></div><div class="msg">Falta tu firma. Dibújala dentro del recuadro.</div></div><label class="consent" data-f="ok" for="ok"><input type="checkbox" id="ok"><span>Acepto que mis datos se usen únicamente para el control de asistencia de este taller.</span></label><div class="row"><button type="button" class="btn ghost" id="back" style="flex:0 0 35%">Atrás</button><button class="btn" type="submit">Registrar asistencia</button></div></form>`;const sig=setupPad();$("#clr").onclick=sig.clear;const rules={nombre:v=>v.trim().length>=3,doc:v=>/^[A-Za-z0-9\-]{5,15}$/.test(v.replace(/\s/g,"")),tel:v=>!v.trim()||/^\+?\d{7,15}$/.test(v.replace(/[\s\-().]/g,"")),email:v=>!v.trim()||/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()),firma:()=>sig.has(),ok:()=>$("#ok").checked};const check=k=>{const el=document.querySelector(`[data-f="${k}"]`),v=(k=== "ok"||k=== "firma")?"":$("#"+k).value;const good=rules[k](v);el.classList.toggle("bad",!good);return good};Object.keys(rules).forEach(k=>{const inp=$("#"+k);if(!inp)return;inp.addEventListener("blur",()=>{if(k!=="ok")check(k)});inp.addEventListener("input",()=>{if(document.querySelector(`[data-f="${k}"]`).classList.contains("bad"))check(k)})});$("#back").onclick=()=>{S.step=1;view1()};$("#f").onsubmit=e=>{e.preventDefault();const okAll=Object.keys(rules).map(check).every(Boolean);if(!okAll){const first=document.querySelector(".bad");first.scrollIntoView({block:"center"});const i=first.querySelector("input");i&&i.focus();return}registrar({nombre:$("#nombre").value.trim().replace(/\s+/g," "),doc:$("#doc").value.replace(/\s/g,"").toUpperCase(),tel:$("#tel").value.trim(),email:$("#email").value.trim(),firma:sig.data()})}}
+function setupPad(){const c=$("#pad"),x=c.getContext("2d");let down=false,ink=false;const blank=()=>{x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.strokeStyle="#111";x.lineWidth=3;x.lineCap=x.lineJoin="round"};const pos=e=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)*c.width/r.width,(e.clientY-r.top)*c.height/r.height]};blank();c.addEventListener("pointerdown",e=>{e.preventDefault();c.setPointerCapture(e.pointerId);down=true;ink=true;const[a,b]=pos(e);x.beginPath();x.moveTo(a,b);x.lineTo(a+.1,b+.1);x.stroke();document.querySelector('[data-f="firma"]').classList.remove("bad")});c.addEventListener("pointermove",e=>{if(!down)return;const[a,b]=pos(e);x.lineTo(a,b);x.stroke()});["pointerup","pointercancel","pointerleave"].forEach(t=>c.addEventListener(t,()=>{down=false}));return{has:()=>ink,data:()=>c.toDataURL("image/png"),clear:()=>{blank();ink=false}}}
+function registrar(p){const t=getT(S.t),d=t.dias.find(x=>x.id===S.d);const now=new Date(),fecha=hoyISO();const all=load();const dup=all.find(r=>r.doc===p.doc&&r.tallerId===t.id&&(r.diaId||"")===(d?d.id:"")&&r.fecha===fecha);if(dup){S.last=dup;S.dup=true;return view3()}const rec={id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),...p,taller:t.nombre,tallerId:t.id,dia:d?d.etiqueta:"",diaId:d?d.id:"",fecha,hora:`${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`,ts:now.toISOString()};all.push(rec);save(all);if(CONFIG.SHEETS_URL)fetch(CONFIG.SHEETS_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(rec)}).catch(()=>{});S.last=rec;S.dup=false;view3()}
+function view3(){const r=S.last,first=esc(r.nombre.split(" ")[0]);$("#stage").innerHTML=`${stepsBar(3)}<div class="ok"><svg viewBox="0 0 110 110" aria-hidden="true"><circle cx="55" cy="55" r="46"/><path d="M34 57l15 15 28-31"/></svg><h1>${S.dup?"Ya registraste tu asistencia hoy ✅":"¡Asistencia registrada!"}</h1><p class="lead">${S.dup?`Todo en orden, ${first}. No hace falta que lo hagas otra vez.`:`Gracias por venir, ${first}.`}</p><span class="pill">${esc(r.taller)}${r.dia?" · "+esc(r.dia):""}</span><button class="btn" id="again">Registrar a otra persona</button></div>`;$("#again").onclick=()=>{S={step:1,t:null,d:null,last:null,dup:false};view1()}}
+let adminOK=false;function show(admin){$("#pub").hidden=admin;$("#adm").hidden=!admin;document.querySelector("footer").hidden=admin;window.scrollTo(0,0)}$("#goAdmin").onclick=()=>{show(true);$("#pinView").hidden=adminOK;$("#admView").hidden=!adminOK;if(adminOK)renderAdmin();else{$("#pin").value="";$("#aem").value="";$("#pinF").classList.remove("bad");$("#aem").focus()}};$("#pinBack").onclick=()=>show(false);$("#admBack").onclick=()=>{adminOK=false;show(false)};
+const sha=async t=>[...new Uint8Array(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t)))].map(x=>x.toString(16).padStart(2,"0")).join("");const tryPin=async()=>{if(!window.crypto||!crypto.subtle){alert("Para iniciar sesión abre la página con https.");return}const h=await sha("pu-asistencia|"+$("#aem").value.trim().toLowerCase()+"|"+$("#pin").value);if(h===CONFIG.adminHash){adminOK=true;$("#pinF").classList.remove("bad");$("#pinView").hidden=true;$("#admView").hidden=false;initAdmin()}else{$("#pinF").classList.add("bad");await new Promise(r=>setTimeout(r,1200))}};$("#pinGo").onclick=tryPin;["#pin","#aem"].forEach(i=>$(i).addEventListener("keydown",e=>{if(e.key=== "Enter")tryPin()}));
+function initAdmin(){ $("#fT").innerHTML=`<option value="">Todos los talleres</option>`+CONFIG.talleres.map(t=>`<option value="${t.id}">${esc(t.nombre)}</option>`).join("");$("#fD").innerHTML=`<option value="">Todos los días</option>`+CONFIG.talleres.flatMap(t=>t.dias).map(d=>`<option value="${d.id}">${esc(d.etiqueta)}</option>`).join("");$("#note").textContent="Sin Google Sheets conectado, esta tabla solo muestra los registros hechos desde este dispositivo.";renderAdmin()}
+function filtrados(){const q=$("#q").value.trim().toLowerCase(),ft=$("#fT").value,fd=$("#fD").value;return load().filter(r=>(!ft||r.tallerId===ft)&&(!fd||r.diaId===fd)&&(!q||r.nombre.toLowerCase().includes(q)||r.doc.toLowerCase().includes(q))).sort((a,b)=>b.ts.localeCompare(a.ts))}
+const fmtF=r=>`${r.fecha.split("-").reverse().join("/")} ${r.hora}`;function renderAdmin(){const all=load(),hoy=hoyISO();let sum=`<div><strong>${all.filter(r=>r.fecha===hoy).length}</strong><span>Asistentes hoy</span></div><div><strong>${all.length}</strong><span>Registros en total</span></div>`;CONFIG.talleres.forEach(t=>{if(!t.dias.length)sum+=`<div><strong>${all.filter(r=>r.tallerId===t.id).length}</strong><span>${esc(t.nombre)}</span></div>`;else t.dias.forEach(d=>sum+=`<div><strong>${all.filter(r=>r.diaId===d.id).length}</strong><span>${esc(t.nombre)} · ${esc(d.etiqueta)}</span></div>`)});$("#sum").innerHTML=sum;const rows=filtrados();$("#tb").innerHTML=rows.map(r=>`<tr><td>${esc(r.nombre)}</td><td>${esc(r.doc)}</td><td>${esc(r.tel)}</td><td>${esc(r.email)}</td><td>${esc(r.taller)}</td><td>${esc(r.dia)}</td><td>${fmtF(r)}</td><td>${r.firma?`<img class="sigimg" src="${esc(r.firma)}" alt="Firma">`:""}</td><td class="noprint"><button class="btn red sm" data-del="${r.id}">Eliminar</button></td></tr>`).join("");$("#emp").hidden=rows.length>0;document.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{if(confirm("¿Eliminar este registro? No se puede deshacer.")){save(load().filter(r=>r.id!==b.dataset.del));renderAdmin()}})}
+["#q","#fT","#fD"].forEach(s=>$(s).addEventListener("input",renderAdmin));$("#prn").onclick=()=>window.print();$("#csv").onclick=()=>{const cols=["Nombre","Documento","Teléfono","Correo","Taller","Día","Fecha","Hora","Firma"];const cell=v=>{v=String(v??"");if(/^[=+\-@]/.test(v))v="'"+v;return'"'+v.replace(/"/g,'""')+'"'};const lines=[cols.join(";")].concat(filtrados().reverse().map(r=>[r.nombre,r.doc,r.tel,r.email,r.taller,r.dia,r.fecha.split("-").reverse().join("/"),r.hora,r.firma?"Firmado":"Sin firma"].map(cell).join(";")));const blob=new Blob(["\ufeff"+lines.join("\r\n")],{type:"text/csv;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`asistencia_${hoyISO()}.csv`;document.body.appendChild(a);a.click();a.remove()};
+view1();
+</script>
+</body>
+</html>
